@@ -1,5 +1,4 @@
-from settings import greetings_list, number_of_questions_min, number_of_questions_max, question_1_list, \
-    question_2_list
+from settings import *
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.options import Options
@@ -29,7 +28,7 @@ def question_1(clients):
     :return:
     """
     for bot in random.sample(clients, k=random.randint(number_of_questions_min, number_of_questions_max)):
-        base_command(bot, question_1_list)
+        base_command(bot, available_commands['2'])
 
 
 def question_2(clients):
@@ -39,7 +38,7 @@ def question_2(clients):
     :return:
     """
     for bot in random.sample(clients, k=random.randint(number_of_questions_min, number_of_questions_max)):
-        base_command(bot, question_2_list)
+        base_command(bot, available_commands['3'])
 
 
 def command_hello(clients):
@@ -49,4 +48,15 @@ def command_hello(clients):
     :return:
     """
     for bot in random.sample(clients, k=random.randint(number_of_questions_min, number_of_questions_max)):
-        base_command(bot, greetings_list)
+        base_command(bot, available_commands['1'])
+
+
+def universal_command(clients, command):
+    for bot in random.sample(clients, k=random.randint(number_of_questions_min, number_of_questions_max)):
+        base_command(bot, available_commands[command])
+
+
+def universal_command_test(clients, command):
+    for bot in random.sample(clients, k=random.randint(number_of_questions_min, number_of_questions_max)):
+        return f'{bot} says: {available_commands[command][0]}'
+

@@ -1,10 +1,11 @@
+import os
+from multiprocessing.pool import ThreadPool
+
 from selenium import webdriver
-from selenium.webdriver import Keys
 from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
+from create_and_registaer_bots import create_and_registaer_bots
+from settings import number_of_threads
 
 
 def get_client(url: str) -> webdriver.Chrome:
@@ -23,3 +24,17 @@ def get_client(url: str) -> webdriver.Chrome:
     driver = webdriver.Chrome(options=options, executable_path='chromedriver')
     driver.get(url)
     return driver
+
+
+def create_bots(number_of_bots):
+    urls = create_and_registaer_bots(number_of_bots, os.getenv('ROOM_ID'))
+    pool = ThreadPool(number_of_threads)
+    clients = pool.map(get_client, urls)
+    pool.close()
+    pool.join()
+    return clients
+
+
+def stop_clients(drivers):
+    for driver in drivers:
+        driver.quit()

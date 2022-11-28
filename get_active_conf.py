@@ -7,6 +7,11 @@ from ClickMeetingRestClient import ClickMeetingRestClient
 load_dotenv(find_dotenv())
 
 
+def register_one(room_id, params):
+    client = ClickMeetingRestClient({'api_key': os.getenv('API_KEY')})
+    print(client.addConferenceRegistration(room_id, params))
+
+
 def get_active_conf_info():
     """
     get one active conf and return id
