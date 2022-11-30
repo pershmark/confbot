@@ -30,9 +30,14 @@ if __name__ == '__main__':
     command = input(txt_start_commands)
     while command != 'exit':
         try:
+            available_commands = get_available_commands(way_to_receive_commands_and_messages)
             if command in available_commands.keys():
                 try:
-                    universal_command(clients, command)
+                    result = universal_command(clients, command, available_commands)
+                    if result:
+                        print(txt_command_completed_successfully)
+                    else:
+                        print(txt_command_has_not_been_implemented)
                     command = input(txt_start_commands)
                 except Exception as e:
                     print(e)

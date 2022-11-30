@@ -21,8 +21,8 @@ txt_stop_bots_button = 'Stop bots'
 txt_run_app_button = 'RUN'
 
 # random amount of question
-number_of_questions_min = 1
-number_of_questions_max = 10
+number_of_questions_min = 2
+number_of_questions_max = 5
 
 # commands
 commands_file_name = 'commands.xlsx'
@@ -32,20 +32,26 @@ web_url = 'http://127.0.0.1:8000'
 
 
 # ways to receive commands and messages (1 or 2 or 3):
-ways_to_receive_commands_and_messages = 3
+way_to_receive_commands_and_messages = 2
 
-# 3 ways:
 
-# 1 way: dict in this variable:
-if ways_to_receive_commands_and_messages == 1:
-    available_commands = {}
-    # example:
-    # available_commands = {'1': ['hi', 'hello', 'hey'], '2': ['some sentence 1', 'some sentence 2', 'some sentence 3']}
+def get_available_commands(way_to_receive_commands_and_messages):
+    # 3 ways:
 
-# 2 way: get from xlsx file (colum name it is command; rows it is sentences)
-elif ways_to_receive_commands_and_messages == 2:
-    available_commands = get_data_from_xlsx(commands_file_name)
+    # 1 way: dict in this variable:
+    if way_to_receive_commands_and_messages == 1:
+        available_commands = {}
+        # example:
+        # available_commands = {
+        #   '1': ['hi', 'hello', 'hey'], '2': ['some sentence 1', 'some sentence 2', 'some sentence 3']
+        # }
 
-# 3 way: get from web server (it is needed to run django app)
-else:
-    available_commands = get_data_from_web(web_url)
+    # 2 way: get from xlsx file (colum name it is command; rows it is sentences)
+    elif way_to_receive_commands_and_messages == 2:
+        available_commands = get_data_from_xlsx(commands_file_name)
+
+    # 3 way: get from web server (it is needed to run django app)
+    else:
+        available_commands = get_data_from_web(web_url)
+
+    return available_commands

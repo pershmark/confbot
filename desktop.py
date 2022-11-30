@@ -115,10 +115,14 @@ class Application(tk.Tk):
         self.ms_creating_bots.pack_forget()
         while self.command != 'exit':
             self.commands_window()
+            available_commands = get_available_commands(way_to_receive_commands_and_messages)
             if self.command in available_commands.keys():
                 try:
-                    universal_command(self.clients, self.command)
-                    log_window.add_log(f'{txt_command_completed_successfully}: {self.command}')
+                    result = universal_command(self.clients, self.command, available_commands)
+                    if result:
+                        log_window.add_log(f'{txt_command_completed_successfully}: {self.command}')
+                    else:
+                        log_window.add_log(f'{txt_command_has_not_been_implemented}: {self.command}')
 
                     # for test
                     # print(universal_command_test(self.clients, self.command))

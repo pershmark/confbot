@@ -41,7 +41,6 @@ def exit(update, context):
 
 
 def echo(update, context):
-    """Echo the user message."""
     global clients
     user_input = update.message.text
     if not clients:
@@ -61,11 +60,15 @@ def echo(update, context):
         except ValueError or TypeError:
             update.message.reply_text(txt_positive_number)
     else:
+        available_commands = get_available_commands(way_to_receive_commands_and_messages)
         command = user_input
         if command in available_commands.keys():
             try:
-                update.message.reply_text(universal_command(clients, command))
-
+                result = universal_command(clients, command, available_commands)
+                if result:
+                    update.message.reply_text(txt_command_completed_successfully)
+                else:
+                    update.message.reply_text(txt_command_has_not_been_implemented)
                 # for test
                 # update.message.reply_text(random.choice(available_commands[command]))
             except Exception as e:

@@ -17,7 +17,7 @@ class Command(BaseModel):
     """
     Command
     """
-    name = models.TextField(max_length=64, null=False, blank=False)
+    name = models.TextField(max_length=64, null=False, blank=False, unique=True)
 
     def __str__(self):
         desc = str([command.text for command in self.messages.all()]).replace('[', '').replace(']', '')
