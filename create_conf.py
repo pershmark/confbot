@@ -135,45 +135,48 @@ try:
     #
     # print(client.deleteConference(room_id))
 
-    params_list = [
-        {
-            "registration": {
-                1: 'John',
-                2: 'ta',
-                3: 'example1@domain.com'
-            },
-            "confirmation_email": {
-                'enabled': 1,
-                'lang': 'en',
-            }
-        },
-        {
-            "registration": {
-                1: 'John',
-                2: 'taa',
-                3: 'example2@domain.com'
-            },
-            "confirmation_email": {
-                'enabled': 1,
-                'lang': 'en',
-            }
-        },
-        {
-            "registration": {
-                1: 'John',
-                2: 'taaa',
-                3: 'example3@domain.com'
-            },
-            "confirmation_email": {
-                'enabled': 1,
-                'lang': 'en',
-            }
-        },
 
-    ]
 
-    for params in params_list:
-        print(client.addConferenceRegistration(room_id, params))
+    #
+    # params_list = [
+    #     {
+    #         "registration": {
+    #             1: 'John',
+    #             2: 'ta',
+    #             3: 'example1@domain.com'
+    #         },
+    #         "confirmation_email": {
+    #             'enabled': 1,
+    #             'lang': 'en',
+    #         }
+    #     },
+    #     {
+    #         "registration": {
+    #             1: 'John',
+    #             2: 'taa',
+    #             3: 'example2@domain.com'
+    #         },
+    #         "confirmation_email": {
+    #             'enabled': 1,
+    #             'lang': 'en',
+    #         }
+    #     },
+    #     {
+    #         "registration": {
+    #             1: 'John',
+    #             2: 'taaa',
+    #             3: 'example3@domain.com'
+    #         },
+    #         "confirmation_email": {
+    #             'enabled': 1,
+    #             'lang': 'en',
+    #         }
+    #     },
+    #
+    # ]
+    #
+    # for params in params_list:
+    #     print(client.addConferenceRegistration(room_id, params))
 
 
 except Exception as e:

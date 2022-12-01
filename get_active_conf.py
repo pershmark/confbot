@@ -18,10 +18,13 @@ def get_active_conf_info():
     """
     client = ClickMeetingRestClient({'api_key': os.getenv('API_KEY')})
     conferences = client.conferences('active')
-    conference = conferences[0]
-    print(conference)
-    print(conference['id'])
-    print(conference['room_url'])
-    print(conference['autologin_hash'])
-    print(f"url: {conference['room_url'] + '?l=' + conference['autologin_hash']}")
-    print(f"token: {client.conferenceTokens(conference['id'])}")
+    for conference in conferences:
+        try:
+            print(conference)
+            print(conference['id'])
+            print(conference['room_url'])
+            print(conference['autologin_hash'])
+            print(f"url: {conference['room_url'] + '?l=' + conference['autologin_hash']}")
+            print(f"token: {client.conferenceTokens(conference['id'])}")
+        except Exception as e:
+            print(e)
