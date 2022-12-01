@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  backend:
+    container_name: backend
+    build: ./
+    restart: always
+    command: gunicorn -w 2 -b 0:8000 app.wsgi:application
+    ports:
+      - 8000:8000
+    volumes:
+#      - ./:./
+      - static_content:/var/www/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=app.settings
+    env_file:
+      - .env
+
+
+  nginx:
+    env_file:
+      - .env
+    image: nginx:1.19-alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static_content:/var/www/app
+    ports:
+      - 80:80
+      - 444:443
+    depends_on:
+      - backend
+
+volumes:
+  static_content: {}
