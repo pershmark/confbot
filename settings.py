@@ -1,5 +1,9 @@
 from table_data import get_data_from_xlsx, get_data_from_web
 
+# https://faker.readthedocs.io/en/master/locales.html
+# locale = 'en'
+locale = 'ru_RU'
+
 max_amount_of_bots = 300
 
 number_of_threads = 10
@@ -32,7 +36,7 @@ web_url = 'http://127.0.0.1:8000'
 
 
 # ways to receive commands and messages (1 or 2 or 3):
-way_to_receive_commands_and_messages = 2
+way_to_receive_commands_and_messages = 3
 
 
 def get_available_commands(way_to_receive_commands_and_messages):

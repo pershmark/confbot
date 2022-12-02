@@ -7,6 +7,8 @@ from faker import Faker
 from ClickMeetingRestClient import ClickMeetingRestClient
 from dotenv import load_dotenv, find_dotenv
 
+from settings import locale
+
 load_dotenv(find_dotenv())
 
 
@@ -23,15 +25,22 @@ def create_and_registaer_bots(number_of_bots: int, room_id: str) -> list:
 
     try:
         # generate bots
-        fake = Faker()
+        fake = Faker(locale)
         params_list = []
-        for _ in range(number_of_bots):
+        for i in range(number_of_bots):
+            if i % 2:
+                first_name = fake.first_name_female()
+                last_name = fake.last_name_female()
+            else:
+                first_name = fake.first_name_male()
+                last_name = fake.last_name_male()
+            email = fake.email()
             params_list.append(
                 {
                     "registration": {
-                        1: fake.first_name(),
-                        2: fake.last_name(),
-                        3: fake.email()
+                        1: first_name,
+                        2: last_name,
+                        3: email
                     },
                     "confirmation_email": {
                         'enabled': 1,
