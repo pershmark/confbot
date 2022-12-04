@@ -25,7 +25,7 @@ def create_and_registaer_bots(number_of_bots: int, room_id: str) -> list:
 
     try:
         # generate bots
-        fake = Faker(locale)
+        fake = Faker()
         params_list = []
         for i in range(number_of_bots):
             if i % 2:

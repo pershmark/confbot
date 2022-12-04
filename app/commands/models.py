@@ -45,3 +45,59 @@ class Message(BaseModel):
         verbose_name = "Message"
         verbose_name_plural = "Messages"
 
+
+class Bot(BaseModel):
+    """
+    Bot
+    """
+    first_name = models.CharField(max_length=128, null=False, blank=False)
+    last_name = models.CharField(max_length=128, null=False, blank=False)
+    username = models.CharField(max_length=128, null=True, blank=True)
+    email = models.EmailField(null=False, blank=False)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        ordering = ["-create_date"]
+
+
+class APIKey(BaseModel):
+    """
+    API Key for Clickmeeting
+    """
+    key = models.CharField(max_length=512, null=False, blank=False)
+
+    def __str__(self):
+        return self.key
+
+
+class RoomID(BaseModel):
+    """
+    Room ID for Clickmeeting conf
+    """
+    room_id = models.CharField(max_length=512, null=False, blank=False)
+
+    def __str__(self):
+        return self.room_id
+
+
+class GeneralSettings(BaseModel):
+    """
+    max_amount_of_bots - Max amount of bots
+    number_of_messages_min - Minimum number of messages that will be sent by bots
+    number_of_messages_max - Maximum number of messages that will be sent by bots
+    delay_between_messages_min - Delay between messages minimum
+    delay_between_messages_max - Delay between messages maximum
+    """
+    max_amount_of_bots = models.SmallIntegerField(null=False, blank=False)
+    number_of_messages_min = models.SmallIntegerField(null=False, blank=False)
+    number_of_messages_max = models.SmallIntegerField(null=False, blank=False)
+    delay_between_messages_min = models.SmallIntegerField(null=False, blank=False)
+    delay_between_messages_max = models.SmallIntegerField(null=False, blank=False)
+
+    def __str__(self):
+        return 'GeneralSettings' + '_' + str(self.pk)
+
+    class Meta:
+        ordering = ["-create_date"]

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import Textarea
 
-from commands.models import Command, Message, models
+from commands.models import Command, Message, models, Bot, APIKey, RoomID, GeneralSettings
 
 
 # Register your models here.
@@ -29,4 +29,32 @@ class CommandAdmin(admin.ModelAdmin):
     }
 
 
+class BotAdmin(admin.ModelAdmin):
+    exclude = ('create_date',)
+    list_display = ('first_name', 'last_name', 'email', 'username')
+
+
+class APIKeyAdmin(admin.ModelAdmin):
+    exclude = ('create_date',)
+
+
+class RoomIDAdmin(admin.ModelAdmin):
+    exclude = ('create_date',)
+
+
+class GeneralSettingsAdmin(admin.ModelAdmin):
+    exclude = ('create_date',)
+    fields = (
+        'max_amount_of_bots',
+        ('number_of_messages_min', 'number_of_messages_max'),
+        ('delay_between_messages_min', 'delay_between_messages_max')
+    )
+    list_display = ('max_amount_of_bots', 'number_of_messages_min', 'number_of_messages_max',
+                    'delay_between_messages_min', 'delay_between_messages_max')
+
+
 admin.site.register(Command, CommandAdmin)
+admin.site.register(Bot, BotAdmin)
+admin.site.register(APIKey, APIKeyAdmin)
+admin.site.register(RoomID, RoomIDAdmin)
+admin.site.register(GeneralSettings, GeneralSettingsAdmin)
