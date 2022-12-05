@@ -1,18 +1,14 @@
-from table_data import get_data_from_xlsx, get_data_from_web
+from table_data import get_data_from_xlsx, get_data_from_web, get_settings_from_web
 
-# https://faker.readthedocs.io/en/master/locales.html
-# locale = 'en'
-locale = 'ru_RU'
+# WEB url
+web_url = 'http://127.0.0.1:8000'
 
-max_amount_of_bots = 300
-
-number_of_threads = 10
 
 # main texts
 txt_start_commands = 'enter command to bots (type "exit" to close the app): '
 txt_enter_number_of_bots = 'enter the amount of bots: '
 txt_amount_of_bots_must_be_number = 'the amount of bots must be a number'
-txt_positive_number = f'the amount of bots must be a positive number but not bigger than {max_amount_of_bots}'
+txt_positive_number = f'the amount of bots must be a positive number'
 txt_generating_and_connecting_bots = 'the beginning of the process of generating and connecting bots'
 txt_command_not_found = 'command not found'
 txt_the_process_of_creating_bots = 'the process of creating bots...'
@@ -24,15 +20,9 @@ txt_create_bots_button = 'Create bots'
 txt_stop_bots_button = 'Stop bots'
 txt_run_app_button = 'RUN'
 
-# random amount of question
-number_of_questions_min = 2
-number_of_questions_max = 5
 
 # commands
 commands_file_name = 'commands.xlsx'
-
-# WEB url
-web_url = 'http://127.0.0.1:8000'
 
 
 # ways to receive commands and messages (1 or 2 or 3):
@@ -59,3 +49,16 @@ def get_available_commands(way_to_receive_commands_and_messages):
         available_commands = get_data_from_web(web_url)
 
     return available_commands
+
+
+def get_settings():
+    return get_settings_from_web(web_url)
+
+
+
+max_amount_of_bots = 300
+
+number_of_threads = 10
+
+
+

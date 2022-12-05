@@ -12,35 +12,24 @@ from settings import locale
 load_dotenv(find_dotenv())
 
 
-def create_and_registaer_bots(number_of_bots: int, room_id: str) -> list:
+def create_and_registaer_bots(number_of_bots, settings) -> list:
     """
     create and registaer bots in given room
-    :param number_of_bots: int
-    :param room_id: str
-    :return: list
     """
 
     # api client initialization
-    client = ClickMeetingRestClient({'api_key': os.getenv('API_KEY')})
+    client = ClickMeetingRestClient({'api_key': settings['api_key']['key']})
 
     try:
         # generate bots
-        fake = Faker()
         params_list = []
-        for i in range(number_of_bots):
-            if i % 2:
-                first_name = fake.first_name_female()
-                last_name = fake.last_name_female()
-            else:
-                first_name = fake.first_name_male()
-                last_name = fake.last_name_male()
-            email = fake.email()
+        for _, bot in zip(range(number_of_bots), settings['bots']):
             params_list.append(
                 {
                     "registration": {
-                        1: first_name,
-                        2: last_name,
-                        3: email
+                        1: bot['first_name'],
+                        2: bot['last_name'],
+                        3: bot['email']
                     },
                     "confirmation_email": {
                         'enabled': 1,
@@ -52,7 +41,7 @@ def create_and_registaer_bots(number_of_bots: int, room_id: str) -> list:
         # get authorization links for bots
         urls = []
         for params in params_list:
-            res = client.addConferenceRegistration(room_id, params)
+            res = client.addConferenceRegistration(settings['room_id']['room_id'], params)
             urls.append(res['url'])
 
         # print(urls)

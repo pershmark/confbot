@@ -54,6 +54,7 @@ class Bot(BaseModel):
     last_name = models.CharField(max_length=128, null=False, blank=False)
     username = models.CharField(max_length=128, null=True, blank=True)
     email = models.EmailField(null=False, blank=False)
+    geo = models.CharField(max_length=2, null=False, blank=False)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -67,6 +68,7 @@ class APIKey(BaseModel):
     API Key for Clickmeeting
     """
     key = models.CharField(max_length=512, null=False, blank=False)
+    active = models.BooleanField(default=True, null=False, blank=False)
 
     def __str__(self):
         return self.key
@@ -77,6 +79,7 @@ class RoomID(BaseModel):
     Room ID for Clickmeeting conf
     """
     room_id = models.CharField(max_length=512, null=False, blank=False)
+    active = models.BooleanField(default=True, null=False, blank=False)
 
     def __str__(self):
         return self.room_id
@@ -95,6 +98,8 @@ class GeneralSettings(BaseModel):
     number_of_messages_max = models.SmallIntegerField(null=False, blank=False)
     delay_between_messages_min = models.SmallIntegerField(null=False, blank=False)
     delay_between_messages_max = models.SmallIntegerField(null=False, blank=False)
+    active = models.BooleanField(default=True, null=False, blank=False)
+    geo = models.CharField(max_length=2, null=False, blank=False)
 
     def __str__(self):
         return 'GeneralSettings' + '_' + str(self.pk)

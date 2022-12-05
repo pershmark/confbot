@@ -31,7 +31,8 @@ class CommandAdmin(admin.ModelAdmin):
 
 class BotAdmin(admin.ModelAdmin):
     exclude = ('create_date',)
-    list_display = ('first_name', 'last_name', 'email', 'username')
+    list_display = ('first_name', 'last_name', 'email', 'username', 'geo')
+    list_filter = ('geo',)
 
 
 class APIKeyAdmin(admin.ModelAdmin):
@@ -45,12 +46,16 @@ class RoomIDAdmin(admin.ModelAdmin):
 class GeneralSettingsAdmin(admin.ModelAdmin):
     exclude = ('create_date',)
     fields = (
+        'active',
+        'geo',
         'max_amount_of_bots',
         ('number_of_messages_min', 'number_of_messages_max'),
         ('delay_between_messages_min', 'delay_between_messages_max')
     )
     list_display = ('max_amount_of_bots', 'number_of_messages_min', 'number_of_messages_max',
-                    'delay_between_messages_min', 'delay_between_messages_max')
+                    'delay_between_messages_min', 'delay_between_messages_max', 'geo', 'active',)
+
+    list_editable = 'active',
 
 
 admin.site.register(Command, CommandAdmin)

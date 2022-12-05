@@ -29,8 +29,8 @@ def get_client(url: str) -> webdriver.Chrome:
     return driver
 
 
-def create_bots(number_of_bots):
-    urls = create_and_registaer_bots(number_of_bots, os.getenv('ROOM_ID'))
+def create_bots(number_of_bots, settings):
+    urls = create_and_registaer_bots(number_of_bots, settings)
     pool = ThreadPool(number_of_threads)
     clients = pool.map(get_client, urls)
     pool.close()

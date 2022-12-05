@@ -15,6 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 clients = []
+settings = {}
 
 
 def start(update, context):
@@ -46,11 +47,11 @@ def echo(update, context):
     if not clients:
         try:
             number_of_bots = int(user_input)
-            if number_of_bots <= 0 or number_of_bots > max_amount_of_bots:
+            if number_of_bots <= 0 or number_of_bots > settings['general_settings']['max_amount_of_bots']:
                 update.message.reply_text(txt_positive_number)
             else:
                 update.message.reply_text(txt_the_process_of_creating_bots)
-                clients = create_bots(number_of_bots)
+                clients = create_bots(number_of_bots, settings)
                 update.message.reply_text(txt_bots_are_created)
                 update.message.reply_text(txt_start_commands)
 
@@ -64,7 +65,7 @@ def echo(update, context):
         command = user_input
         if command in available_commands.keys():
             try:
-                result = universal_command(clients, command, available_commands)
+                result = universal_command(clients, command, available_commands, settings)
                 if result:
                     update.message.reply_text(txt_command_completed_successfully)
                 else:
@@ -88,6 +89,8 @@ def error(update, context):
 
 def main():
     """Start the bot."""
+    global settings
+    settings = get_settings()
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))

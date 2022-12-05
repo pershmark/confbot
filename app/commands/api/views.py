@@ -1,8 +1,10 @@
 from rest_framework import generics, status, mixins
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
-from commands.api.serializers import APICommandSerializer, APICommandSerializerResponse
-from commands.models import Command
+from commands.api.serializers import APICommandSerializer, GeneralSettingsSerializer, RoomIDSerializer, \
+    APIKeySerializer, BotSerializer
+from commands.models import Command, Bot, APIKey, RoomID, GeneralSettings
 
 
 class CommandView(mixins.ListModelMixin, generics.GenericAPIView):
@@ -12,9 +14,25 @@ class CommandView(mixins.ListModelMixin, generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-    # def get(self, request, *args, **kwargs):
-    #     serializer = APICommandSerializerResponse(data=request.data, context={'request': request})
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BotView(mixins.ListModelMixin, generics.GenericAPIView):
+    queryset = Bot.objects.all()
+    serializer_class = BotSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+class APIKeyView(ListAPIView):
+    queryset = APIKey.objects.filter(active=True)
+    serializer_class = APIKeySerializer
+
+
+class RoomIDView(ListAPIView):
+    queryset = RoomID.objects.filter(active=True)
+    serializer_class = RoomIDSerializer
+
+
+class GeneralSettingsView(ListAPIView):
+    queryset = GeneralSettings.objects.filter(active=True)
+    serializer_class = GeneralSettingsSerializer
