@@ -28,11 +28,22 @@ def get_data_from_web(url):
     return result
 
 
+def get_timelines(url):
+    response = requests.get(url + '/api/timeline').json()
+    result = {}
+    for item in response:
+        key = item['name']
+        value = item['commands']
+        result[key] = value
+    return result
+
+
 def get_settings_from_web(url):
     settings = {
         'api_key': requests.get(url + '/api/api_key').json()[0],
         'general_settings': requests.get(url + '/api/general_settings').json()[0],
         'room_id': requests.get(url + '/api/room_id').json()[0],
+        'timeline': get_timelines(url),
     }
     resp = requests.get(url + '/api/bots').json()
     bots = []

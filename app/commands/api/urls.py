@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.static import serve
 from app import settings
-from commands.api.views import CommandView, BotView, APIKeyView, RoomIDView, GeneralSettingsView
+from commands.api.views import CommandView, BotView, APIKeyView, RoomIDView, GeneralSettingsView, TimelineView
 
 admin.autodiscover()
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path('api_key', APIKeyView.as_view(), name='api_key'),
     path('general_settings', GeneralSettingsView.as_view(), name='general_settings'),
     path('room_id', RoomIDView.as_view(), name='room_id'),
+    path('timeline', TimelineView.as_view(), name='timeline'),
 ]

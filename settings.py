@@ -5,21 +5,25 @@ web_url = 'http://127.0.0.1:8000'
 
 
 # main texts
-txt_start_commands = 'enter command to bots (type "exit" to close the app): '
+txt_start_commands = 'enter command or timeline to bots (type "/exit" to close the app): '
 txt_enter_number_of_bots = 'enter the amount of bots: '
 txt_amount_of_bots_must_be_number = 'the amount of bots must be a number'
 txt_positive_number = f'the amount of bots must be a positive number'
 txt_generating_and_connecting_bots = 'the beginning of the process of generating and connecting bots'
 txt_command_not_found = 'command not found'
+txt_timeline_not_found = 'timeline not found'
 txt_the_process_of_creating_bots = 'the process of creating bots...'
 txt_bots_are_created = 'bots created successfully'
-txt_exit = 'do you want to exit?'
 txt_command_has_not_been_implemented = 'command has not been implemented'
 txt_command_completed_successfully = 'command completed successfully'
 txt_create_bots_button = 'Create bots'
 txt_stop_bots_button = 'Stop bots'
 txt_run_app_button = 'RUN'
-
+txt_broadcast_type = 'choose the type of appearance of messages in the translation:' \
+                       ' by command in the chat or by timeline'
+txt_command_in_the_chat = 'command_in_chat'
+txt_timeline = 'timeline'
+txt_exit = 'all bots removed'
 
 # commands
 commands_file_name = 'commands.xlsx'
@@ -53,7 +57,6 @@ def get_available_commands(way_to_receive_commands_and_messages):
 
 def get_settings():
     return get_settings_from_web(web_url)
-
 
 
 max_amount_of_bots = 300

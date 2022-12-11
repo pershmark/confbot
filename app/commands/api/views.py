@@ -3,8 +3,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
 from commands.api.serializers import APICommandSerializer, GeneralSettingsSerializer, RoomIDSerializer, \
-    APIKeySerializer, BotSerializer
-from commands.models import Command, Bot, APIKey, RoomID, GeneralSettings
+    APIKeySerializer, BotSerializer, TimelineSerializer
+from commands.models import Command, Bot, APIKey, RoomID, GeneralSettings, Timeline
 
 
 class CommandView(mixins.ListModelMixin, generics.GenericAPIView):
@@ -36,3 +36,8 @@ class RoomIDView(ListAPIView):
 class GeneralSettingsView(ListAPIView):
     queryset = GeneralSettings.objects.filter(active=True)
     serializer_class = GeneralSettingsSerializer
+
+
+class TimelineView(ListAPIView):
+    queryset = Timeline.objects.all()
+    serializer_class = TimelineSerializer

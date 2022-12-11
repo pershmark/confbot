@@ -7,7 +7,6 @@ from faker import Faker
 from ClickMeetingRestClient import ClickMeetingRestClient
 from dotenv import load_dotenv, find_dotenv
 
-from settings import locale
 
 load_dotenv(find_dotenv())
 

@@ -13,11 +13,28 @@ class BaseModel(models.Model):
     write_date = models.DateField(null=True, auto_now=True, editable=True)
 
 
+class Timeline(BaseModel):
+    """
+    Timeline
+    """
+    name = models.CharField(max_length=128, null=False, blank=False, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["-create_date"]
+        verbose_name = "Timeline"
+        verbose_name_plural = "Timelines"
+
+
 class Command(BaseModel):
     """
     Command
     """
     name = models.TextField(max_length=64, null=False, blank=False, unique=True)
+    time = models.TimeField(null=True, blank=True, unique=True)
+    timeline = models.ForeignKey(to=Timeline, related_name='commands', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         desc = str([command.text for command in self.messages.all()]).replace('[', '').replace(']', '')
@@ -100,6 +117,7 @@ class GeneralSettings(BaseModel):
     delay_between_messages_max = models.SmallIntegerField(null=False, blank=False)
     active = models.BooleanField(default=True, null=False, blank=False)
     geo = models.CharField(max_length=2, null=False, blank=False)
+    timeline = models.ForeignKey(to=Timeline, related_name='general_settings', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return 'GeneralSettings' + '_' + str(self.pk)

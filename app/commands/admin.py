@@ -1,13 +1,17 @@
+from django import forms
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminTimeWidget
 from django.forms import Textarea
+import nested_admin
+from nested_admin.nested import NestedTabularInline
 
-from commands.models import Command, Message, models, Bot, APIKey, RoomID, GeneralSettings
+from commands.models import Command, Message, models, Bot, APIKey, RoomID, GeneralSettings, Timeline
 
 
 # Register your models here.
 
 
-class MessageAdmin(admin.TabularInline):
+class MessageAdmin(NestedTabularInline):
     model = Message
     fields = 'text',
     show_change_link = True
@@ -17,7 +21,32 @@ class MessageAdmin(admin.TabularInline):
     }
 
 
-class CommandAdmin(admin.ModelAdmin):
+class CommandInLineAdmin(NestedTabularInline):
+    model = Command
+    fields = 'name', 'time',
+    show_change_link = True
+    extra = 0
+    inlines = [MessageAdmin]
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 170})},
+    }
+
+    class Media:
+        js = ('js/clock_time_selections.js',)
+
+class TimelineAdmin(nested_admin.NestedModelAdmin):
+    model = Timeline
+    fields = 'name',
+    show_change_link = True
+    save_as = True
+    extra = 0
+    inlines = [CommandInLineAdmin]
+    formfield_overrides = {
+        models.TextField: {'widget': Textarea(attrs={'rows': 1, 'cols': 170})},
+    }
+
+
+class CommandAdmin(nested_admin.NestedModelAdmin):
     model = Command
     fields = 'name',
     show_change_link = True
@@ -37,10 +66,13 @@ class BotAdmin(admin.ModelAdmin):
 
 class APIKeyAdmin(admin.ModelAdmin):
     exclude = ('create_date',)
-
+    list_display = 'key', 'active',
+    list_editable = 'active',
 
 class RoomIDAdmin(admin.ModelAdmin):
     exclude = ('create_date',)
+    list_display = 'room_id', 'active',
+    list_editable = 'active',
 
 
 class GeneralSettingsAdmin(admin.ModelAdmin):
@@ -63,3 +95,4 @@ admin.site.register(Bot, BotAdmin)
 admin.site.register(APIKey, APIKeyAdmin)
 admin.site.register(RoomID, RoomIDAdmin)
 admin.site.register(GeneralSettings, GeneralSettingsAdmin)
+admin.site.register(Timeline, TimelineAdmin)
