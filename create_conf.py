@@ -47,7 +47,7 @@ try:
     print(client.conferences('active'))
 
     params = {
-        'email': 'rens2588@gmail.com',
+        'email': 'borodin.mark.w@gmail.com',
         'nickname': 'mark',
         'role': 'presenter'
     }
