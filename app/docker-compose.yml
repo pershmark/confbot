@@ -3,7 +3,7 @@ version: '3'
 services:
 
   backend:
-    container_name: backend
+    container_name: backend_cmb
     build: ./
     restart: always
     command: gunicorn -w 2 -b 0:8000 app.wsgi:application
