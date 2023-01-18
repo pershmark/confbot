@@ -28,7 +28,7 @@ def get_client(url: str) -> webdriver.Chrome:
     options.add_argument('--ignore-certificate-errors')
 
     # local (but maby and remote also)
-    driver = webdriver.Chrome(options=options, executable_path='chromedriver')
+    driver = webdriver.Chrome(options=options, executable_path='./chromedriver')
 
     # remote (and run server in command line: java -jar selenium-server-standalone-3.5.3.jar)
     # driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options, desired_capabilities=DesiredCapabilities.CHROME.copy())
