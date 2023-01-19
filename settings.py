@@ -1,8 +1,9 @@
 import os
-
+from dotenv import load_dotenv, find_dotenv
 from table_data import get_data_from_xlsx, get_data_from_web, get_settings_from_web
 
 # WEB url
+load_dotenv(find_dotenv())
 web_url = os.getenv('WEB_URL')
 
 
