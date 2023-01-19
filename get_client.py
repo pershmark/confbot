@@ -16,7 +16,7 @@ def get_client(url: str) -> webdriver.Chrome:
     :return: driver webdriver.Chrome
     """
     options = Options()
-    options.add_argument("--headless")  # Runs Chrome in headless mode.
+    # options.add_argument("--headless")  # Runs Chrome in headless mode.
     options.add_argument('--no-sandbox')  # Bypass OS security model
     options.add_argument('--disable-gpu')
     options.add_argument('start-maximized')

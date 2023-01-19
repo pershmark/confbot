@@ -2,6 +2,8 @@ import datetime
 
 from django.db import models
 
+from commands.utils import get_room_id
+
 
 class BaseModel(models.Model):
     """
@@ -95,11 +97,18 @@ class RoomID(BaseModel):
     """
     Room ID for Clickmeeting conf
     """
-    room_id = models.CharField(max_length=512, null=False, blank=False)
+    room_name = models.CharField(max_length=512, null=False, blank=False)
+    room_id = models.CharField(max_length=512, null=True, blank=True)
     active = models.BooleanField(default=True, null=False, blank=False)
 
     def __str__(self):
         return self.room_id
+
+    def save(self, *args, **kwargs):
+        if not self.room_id:
+            result = get_room_id(self.room_name)
+            self.room_id = str(result)
+        super(RoomID, self).save(*args, **kwargs)
 
 
 class GeneralSettings(BaseModel):

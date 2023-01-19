@@ -69,9 +69,10 @@ class APIKeyAdmin(admin.ModelAdmin):
     list_display = 'key', 'active',
     list_editable = 'active',
 
+
 class RoomIDAdmin(admin.ModelAdmin):
     exclude = ('create_date',)
-    list_display = 'room_id', 'active',
+    list_display = 'room_id', 'room_name', 'active',
     list_editable = 'active',
 
 
