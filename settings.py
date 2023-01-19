@@ -1,7 +1,9 @@
+import os
+
 from table_data import get_data_from_xlsx, get_data_from_web, get_settings_from_web
 
 # WEB url
-web_url = 'http://127.0.0.1:8000'
+web_url = os.getenv('WEB_URL')
 
 
 # main texts
