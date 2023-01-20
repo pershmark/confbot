@@ -10,8 +10,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-#      - ./:/var/www/app
-      - ./db.sqlite3://var/www/app/db.sqlite3
+      - ./db.sqlite3:/srv/project/db.sqlite3
+      - ./.env:/srv/project/.env
       - static_content:/var/www/app
     environment:
       - DJANGO_SETTINGS_MODULE=app.settings
