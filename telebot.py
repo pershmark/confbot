@@ -29,6 +29,8 @@ def start(update, context):
     """Send a message when the command /start is issued."""
     global clients
     global c_type
+    global settings
+    settings = get_settings()
     if clients:
         stop_clients(clients)
         clients = []
