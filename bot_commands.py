@@ -22,7 +22,7 @@ def base_command(bot, message):
         comment_field.send_keys(Keys.RETURN)
     except Exception as e:
         with open('log.txt', 'a') as f:  # noqa
-            f.write(f'{datetime.datetime.now()}: {e}\n')
+            f.write(f'"def base_command": {datetime.datetime.now()}: {e}\n')
 
 
 def universal_command(clients, command, settings, available_commands=[]):

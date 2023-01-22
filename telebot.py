@@ -89,7 +89,7 @@ def echo(update, context):
                         update.message.reply_text(txt_command_has_not_been_implemented)
                 except Exception as e:
                     with open('log.txt', 'a') as f:  # noqa
-                        f.write(f'{datetime.datetime.now()}: {e}\n')
+                        f.write(f'"def echo - if c_type == command": {datetime.datetime.now()}: {e}\n')
             elif command == 'exit':
                 update.message.reply_text(txt_stop_bots_button)
                 stop_clients(clients)
@@ -115,7 +115,7 @@ def echo(update, context):
                                 update.message.reply_text(txt_command_has_not_been_implemented)
                         except Exception as e:
                             with open('log.txt', 'a') as f:  # noqa
-                                f.write(f'{datetime.datetime.now()}: {e}\n')
+                                f.write(f'def echo - if c_type == timeline": {datetime.datetime.now()}: {e}\n')
             else:
                 update.message.reply_text(txt_timeline_not_found)
 
@@ -124,7 +124,7 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
     with open('log.txt', 'a') as f:  # noqa
-        f.write(f'{datetime.datetime.now()}: {context.error}\n')
+        f.write(f'def error handler: {datetime.datetime.now()}: {context.error}\n')
 
 
 def main():
